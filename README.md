@@ -59,6 +59,9 @@ _该项目不支持多账户同时签到, 且未来不会添加该功能. 如有
     - `proxy`: 代理地址, 例如 `http://127.0.0.1:1080`, 支持 `HTTP` 和 `SOCKS5` 代理, 不使用代理请留空
     - [Telegram Bot API](https://core.telegram.org/bots/api)
 
+- PushPlus
+    - `token`: PushPlus 发送消息的用户令牌 `token`
+    - [PushPlus官方文档](https://www.pushplus.plus)
 - 欢迎 PR 更多推送渠道
 
 ## 其他
