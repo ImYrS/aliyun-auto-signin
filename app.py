@@ -2,7 +2,7 @@
     @Author: ImYrS Yang
     @Date: 2023/2/10
     @Copyright: ImYrS Yang
-    @Description: 
+    @Description:
 """
 
 import logging
@@ -14,7 +14,7 @@ from typing import NoReturn, Optional
 from configobj import ConfigObj
 import requests
 
-from modules import dingtalk, serverchan, pushdeer, telegram
+from modules import dingtalk, serverchan, pushdeer, telegram, pushplus
 
 
 def update_access_token(refresh_token: str) -> bool | dict:
@@ -116,6 +116,7 @@ def push(
         'serverchan': serverchan,
         'pushdeer': pushdeer,
         'telegram': telegram,
+        'pushplus': pushplus,
     }.items():
         if push_type in configured_push_types:
             pusher.push(signin_result, signin_count, config)
