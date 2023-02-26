@@ -46,13 +46,14 @@ runs:
       shell: bash
       run: |
         wget https://github.com/ImYrS/aliyun-auto-signin/archive/refs/heads/action.zip
-        unzip action.zip
-        mv -f aliyun-auto-signin-action/* .
-        rm -rf aliyun-auto-signin-action
+        rm -rf signin
+        unzip action.zip -d signin
         rm action.zip
     - name: Run
       shell: bash
-      run: python app.py action
+      run: |
+        cd signin/aliyun-auto-signin-action
+        python app.py
       env:
         REFRESH_TOKENS: ${{ inputs.REFRESH_TOKENS }}
         PUSH_TYPES: ${{ inputs.PUSH_TYPES }}
