@@ -1,0 +1,56 @@
+name: Aliyun Signin
+author: ImYrS
+description: 'AliyunDrive signin automatically'
+
+inputs:
+  REFRESH_TOKENS:
+    description: 'AliyunDrive refresh tokens'
+    required: true
+
+  PUSH_TYPES:
+    description: 'Push types for signin result'
+    required: false
+    default: false
+
+  SERVERCHAN_SEND_KEY:
+    description: 'ServerChan send key'
+    required: false
+    default: false
+
+  TELEGRAM_BOT_TOKEN:
+    description: 'Telegram bot token'
+    required: false
+    default: false
+
+  TELEGRAM_CHAT_ID:
+    description: 'Telegram chat id'
+    required: false
+    default: false
+
+  PUSHPLUS_TOKEN:
+    description: 'PushPlus token'
+    required: false
+    default: false
+
+
+on:
+  schedule:
+    - cron: '20 17 * * *'
+
+jobs:
+  signin:
+    name: AliyunDrive Signin
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+          cache: pip
+      - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install configobj requests
+
+      - name: Run
+      - run: python .\app.py
