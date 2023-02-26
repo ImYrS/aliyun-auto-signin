@@ -39,7 +39,7 @@ runs:
     - uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-    - run: pip install configobj requests
-    - name: Run
-      shell: bash
+    - shell: bash
+      run: pip install configobj requests
+    - shell: bash
       run: python .\app.py
