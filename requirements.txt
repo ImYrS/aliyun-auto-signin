@@ -1,0 +1,2 @@
+requests~=2.28.2
+configobj~=5.0.8
