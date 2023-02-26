@@ -162,9 +162,9 @@ def get_config_from_env() -> Optional[dict]:
     try:
         return {
             'refresh_tokens': (
-                [environ['REFRESH_TOKEN']]
-                if not environ['REFRESH_TOKEN']
-                else environ['REFRESH_TOKEN'].split(',')
+                [environ['REFRESH_TOKENS']]
+                if not environ['REFRESH_TOKENS']
+                else environ['REFRESH_TOKENS'].split(',')
             ),
             'push_types': (
                 [environ['PUSH_TYPES']]
