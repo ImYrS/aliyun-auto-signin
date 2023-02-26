@@ -44,4 +44,4 @@ runs:
       run: pip install configobj requests
     - name: Run
       shell: bash
-      run: python ./123/app.py
+      run: python ImYrS/aliyun-auto-signin/app.py
