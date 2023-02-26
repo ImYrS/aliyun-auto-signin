@@ -234,7 +234,7 @@ def main():
         new_users.append(data['refresh_token'])
 
         # 签到
-        if not sign_in(data['access_token'], data['phone']):
+        if not sign_in(config, data['access_token'], data['phone']):
             logging.error(f'[{data["phone"]}] 签到失败.')
             continue
 
