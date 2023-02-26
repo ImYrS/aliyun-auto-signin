@@ -54,3 +54,10 @@ runs:
     - name: Run
       shell: bash
       run: python app.py action
+      with:
+        REFRESH_TOKENS: ${{ inputs.REFRESH_TOKENS }}
+        PUSH_TYPES: ${{ inputs.PUSH_TYPES }}
+        SERVERCHAN_SEND_KEY: ${{ inputs.SERVERCHAN_SEND_KEY }}
+        TELEGRAM_BOT_TOKEN: ${{ inputs.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ inputs.TELEGRAM_CHAT_ID }}
+        PUSHPLUS_TOKEN: ${{ inputs.PUSHPLUS_TOKEN }}
