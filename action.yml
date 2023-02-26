@@ -45,6 +45,7 @@ runs:
     - name: Download
       shell: bash
       run: |
+        rm -rf aliyun-auto-signin-action
         wget https://github.com/ImYrS/aliyun-auto-signin/archive/refs/heads/action.zip
         unzip action.zip
         rm action.zip
