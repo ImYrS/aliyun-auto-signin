@@ -53,7 +53,7 @@ runs:
       shell: bash
       run: |
         cd signin/aliyun-auto-signin-action
-        python app.py
+        python app.py action
       env:
         REFRESH_TOKENS: ${{ inputs.REFRESH_TOKENS }}
         PUSH_TYPES: ${{ inputs.PUSH_TYPES }}

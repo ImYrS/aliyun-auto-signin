@@ -182,7 +182,7 @@ def get_config_from_env() -> Optional[dict]:
             'telegram_chat_id': environ['TELEGRAM_CHAT_ID'],
             'pushplus_token': environ['PUSHPLUS_TOKEN'],
         }
-    except () as e:
+    except KeyError as e:
         logging.error(f'环境变量 {e} 缺失.')
         return None
 
