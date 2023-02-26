@@ -93,6 +93,7 @@ def sign_in(access_token: str, phone: str) -> bool:
 
 
 def push(
+        config: ConfigObj | dict,
         phone: str,
         signin_result: Optional[str] = None,
         signin_count: Optional[int] = None,
@@ -100,13 +101,12 @@ def push(
     """
     推送签到结果
 
+    :param config: 配置文件, ConfigObj 对象或字典
     :param phone: 用户手机号
     :param signin_result: 签到结果
     :param signin_count: 当月累计签到天数
     :return:
     """
-    config = ConfigObj('config.ini', encoding='UTF8')
-
     configured_push_types = [
         i.strip()
         for i in (
