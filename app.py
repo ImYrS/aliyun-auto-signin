@@ -52,10 +52,15 @@ def get_access_token(refresh_token: str) -> bool | dict:
     }
 
 
-def sign_in(access_token: str, phone: str) -> bool:
+def sign_in(
+        config: ConfigObj | dict,
+        access_token: str,
+        phone: str
+) -> bool:
     """
     签到函数
 
+    :param config: 配置文件, ConfigObj 对象或字典
     :param access_token: access_token
     :param phone: 用户手机号
     :return: 是否签到成功
@@ -70,7 +75,7 @@ def sign_in(access_token: str, phone: str) -> bool:
 
     if 'success' not in data:
         logging.error(f'[{phone}] 签到失败, 错误信息: {data}')
-        push(data)
+        push(config, data)
         return False
 
     current_day = None
@@ -87,7 +92,7 @@ def sign_in(access_token: str, phone: str) -> bool:
     logging.info(f'[{phone}] 签到成功, 本月累计签到 {data["result"]["signInCount"]} 天.')
     logging.info(f'[{phone}] 本次签到 {reward}')
 
-    push(phone, reward, data['result']['signInCount'])
+    push(config, phone, reward, data['result']['signInCount'])
 
     return True
 
