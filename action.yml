@@ -45,11 +45,11 @@ runs:
     - name: Download
       shell: bash
       run: |
-        rm -rf aliyun-auto-signin-action
         wget https://github.com/ImYrS/aliyun-auto-signin/archive/refs/heads/action.zip
         unzip action.zip
+        mv -f aliyun-auto-signin-action/* .
+        rm -rf aliyun-auto-signin-action
         rm action.zip
-        cd aliyun-auto-signin-action
     - name: Run
       shell: bash
       run: python app.py action
