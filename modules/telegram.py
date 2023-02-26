@@ -26,7 +26,7 @@ class Pusher:
         self.chat_id = chat_id
         self.proxy = proxy
 
-    def send(self, title: str, content: str) -> dict:
+    def send(self, title: str, content: str) -> Optional[dict]:
         """
         发送消息
 
@@ -52,7 +52,7 @@ class Pusher:
             return resp.json()
 
         logging.error(f'Telegram 推送失败: {resp.status_code} {resp.text}')
-        return resp.json()
+        return None
 
 
 def push(
@@ -85,13 +85,13 @@ def push(
             config['telegram_chat_id'],
             config['telegram_proxy'],
         )
-        pusher.send(
-            '阿里云盘自动签到',
-            f'<code>{phone}</code> 签到成功: 本月累计签到 {signin_count} 天. 本次签到 {signin_result}'
-            if signin_result and signin_count
-            else f'<code>{phone}</code> 签到失败: {signin_result}',
-        )
-        logging.info('Telegram 推送成功')
+        if(pusher.send(
+                '阿里云盘自动签到',
+                f'<code>{phone}</code> 签到成功: 本月累计签到 {signin_count} 天. 本次签到 {signin_result}'
+                if signin_result and signin_count
+                else f'<code>{phone}</code> 签到失败: {signin_result}',
+        )):
+            logging.info('Telegram 推送成功')
     except Exception as e:
         logging.error(f'Telegram 推送失败, 错误信息: {e}')
         return False
