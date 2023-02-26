@@ -161,7 +161,7 @@ def get_config_from_env() -> Optional[dict]:
     """
     try:
         return {
-            'refresh_token': (
+            'refresh_tokens': (
                 [environ['REFRESH_TOKEN']]
                 if not environ['REFRESH_TOKEN']
                 else environ['REFRESH_TOKEN'].split(',')
@@ -211,9 +211,9 @@ def main():
 
     # 获取所有 refresh token 指向用户
     users = (
-        [config['refresh_token']]
-        if type(config['refresh_token']) == str
-        else config['refresh_token']
+        [config['refresh_tokens']]
+        if type(config['refresh_tokens']) == str
+        else config['refresh_tokens']
     )
 
     new_users = []
@@ -235,7 +235,7 @@ def main():
 
     if not by_action:
         # 更新 refresh token
-        config['refresh_token'] = new_users
+        config['refresh_tokens'] = new_users
 
 
 if __name__ == '__main__':
