@@ -42,6 +42,14 @@ runs:
     - name: Dependencies
       shell: bash
       run: pip install configobj requests
+    - name: Download
+      shell: bash
+      run: |
+        wget https://github.com/ImYrS/aliyun-auto-signin/archive/refs/heads/action.zip
+        unzip action.zip
+        mv aliyun-auto-signin-action/* .
+        rm -rf aliyun-auto-signin-action
+        rm action.zip
     - name: Run
       shell: bash
-      run: python ImYrS/aliyun-auto-signin/app.py
+      run: python app.py
