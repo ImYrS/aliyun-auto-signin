@@ -36,6 +36,12 @@ runs:
   using: composite
   steps:
     - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Dependencies
+      shell: bash
+      run: pip install configobj requests
     - name: Download
       shell: bash
       run: |
@@ -44,13 +50,6 @@ runs:
         mv aliyun-auto-signin-action/* .
         rm -rf aliyun-auto-signin-action
         rm action.zip
-    - uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-        cache: 'pip'
-    - name: Dependencies
-      shell: bash
-      run: pip install configobj requests
     - name: Run
       shell: bash
       run: python app.py action
