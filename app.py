@@ -7,7 +7,8 @@
 
 import logging
 from os import environ
-from time import mktime, time
+from sys import argv
+from time import mktime
 from datetime import datetime
 from typing import NoReturn, Optional
 
@@ -152,6 +153,35 @@ def init_logger() -> NoReturn:
     log.addHandler(fh)
 
 
+def get_config_from_env() -> Optional[dict]:
+    """
+    从环境变量获取配置
+
+    :return: 配置字典, 配置缺失返回 None
+    """
+    try:
+        return {
+            'refresh_token': (
+                [environ['REFRESH_TOKEN']]
+                if not environ['REFRESH_TOKEN']
+                else environ['REFRESH_TOKEN'].split(',')
+            ),
+            'push_types': (
+                [environ['PUSH_TYPES']]
+                if not environ['PUSH_TYPES']
+                else environ['PUSH_TYPES'].split(',')
+            ),
+            'serverchan_send_key': environ['SERVERCHAN_SEND_KEY'],
+            'telegram_endpoint': 'https://api.telegram.org',
+            'telegram_bot_token': environ['TELEGRAM_BOT_TOKEN'],
+            'telegram_chat_id': environ['TELEGRAM_CHAT_ID'],
+            'pushplus_token': environ['PUSHPLUS_TOKEN'],
+        }
+    except KeyError as e:
+        logging.error(f'环境变量 {e} 缺失.')
+        return None
+
+
 def main():
     """
     主函数
@@ -162,7 +192,22 @@ def main():
 
     init_logger()  # 初始化日志系统
 
-    config = ConfigObj('config.ini', encoding='UTF8')  # 获取配置文件
+    by_action = (
+        True
+        if len(argv) == 2 and argv[1] == 'action'
+        else False
+    )
+
+    # 获取配置
+    config = (
+        get_config_from_env()
+        if by_action
+        else ConfigObj('config.ini', encoding='UTF8')
+    )
+
+    if not config:
+        logging.error('获取配置失败.')
+        return
 
     # 获取所有 refresh token 指向用户
     users = (
@@ -188,8 +233,9 @@ def main():
             logging.error(f'[{data["phone"]}] 签到失败.')
             continue
 
-    # 更新 refresh token
-    config['refresh_token'] = new_users
+    if not by_action:
+        # 更新 refresh token
+        config['refresh_token'] = new_users
 
 
 if __name__ == '__main__':
