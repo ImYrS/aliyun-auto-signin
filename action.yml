@@ -48,6 +48,9 @@ runs:
       with:
         python-version: '3.10'
         cache: 'pip'
+    - name: Dependencies
+      shell: bash
+      run: pip install configobj requests
     - name: Run
       shell: bash
       run: python app.py action
