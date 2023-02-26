@@ -180,6 +180,7 @@ def get_config_from_env() -> Optional[dict]:
             'telegram_endpoint': 'https://api.telegram.org',
             'telegram_bot_token': environ['TELEGRAM_BOT_TOKEN'],
             'telegram_chat_id': environ['TELEGRAM_CHAT_ID'],
+            'telegram_proxy': None,
             'pushplus_token': environ['PUSHPLUS_TOKEN'],
         }
     except KeyError as e:
