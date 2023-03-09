@@ -191,7 +191,6 @@ def get_config_from_env() -> Optional[dict]:
             'smtp_password': environ['SMTP_PASSWORD'],
             'smtp_sender': environ['SMTP_SENDER'],
             'smtp_receiver': environ['SMTP_RECEIVER'],
-            'github_token': environ['GP_TOKEN'],
         }
     except KeyError as e:
         logging.error(f'环境变量 {e} 缺失.')
