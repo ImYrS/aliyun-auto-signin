@@ -14,6 +14,7 @@ from typing import NoReturn, Optional
 
 from configobj import ConfigObj
 import requests
+import github
 
 from modules import dingtalk, serverchan, pushdeer, telegram, pushplus, smtp
 
@@ -190,6 +191,7 @@ def get_config_from_env() -> Optional[dict]:
             'smtp_password': environ['SMTP_PASSWORD'],
             'smtp_sender': environ['SMTP_SENDER'],
             'smtp_receiver': environ['SMTP_RECEIVER'],
+            'github_token': environ['GP_TOKEN'],
         }
     except KeyError as e:
         logging.error(f'环境变量 {e} 缺失.')
@@ -250,6 +252,8 @@ def main():
     if not by_action:
         # 更新 refresh token
         config['refresh_tokens'] = new_users
+    else:
+        github.update_secret("REFRESH_TOKENS", ",".join(new_users))
 
 
 if __name__ == '__main__':

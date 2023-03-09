@@ -39,6 +39,7 @@
           - uses: ImYrS/aliyun-auto-signin@main
             with:
               REFRESH_TOKENS: ${{ secrets.REFRESH_TOKENS }}
+              GP_TOKEN: ${{ secrets.GP_TOKEN}}
               PUSH_TYPES: ''
               SERVERCHAN_SEND_KEY: ${{ secrets.SERVERCHAN_SEND_KEY }}
               TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -56,13 +57,20 @@
    > 由于配置复杂或渠道 IP 限制等原因, 部分渠道不支持在 Github Action 中使用,
    详见项目首页的[推送渠道](https://github.com/ImYrS/aliyun-auto-signin/blob/main/README.md#%E6%8E%A8%E9%80%81%E6%B8%A0%E9%81%93)
 
+
 ## 配置 GitHub Secrets
 
 在仓库的 `Settings` -> `Secrets and Variables` -> `Actions` 中点击 `New repository secret` 按照推送需要添加 Secrets.  
 添加时 `Name` 为下方全大写的配置 key, `Secret` 为对应的值, 均不需要引号.
 
 - `REFRESH_TOKENS` **[必选]** *阿里云盘 refresh token, 多账户使用英文逗号 (,) 分隔*
+- `GP_TOKEN` [建议选择] 在 Action 中运行时更新 refresh token
 
+> **获取 GP_TOKEN 的方法**  
+> 
+> 点击 github 头像 -> `Settings` (注意与配置 Secrets 不是同一个 Settings) -> `Developer settings` -> `Personal access token` -> `Tokens(classic)` -> `Generate new token`  
+> 
+> 权限选择 `repo`，不然不能更新 Secrets。记住生成的 token，离开页面后无法查看
 
 - `SERVERCHAN_SEND_KEY` [可选] *Server酱推送渠道的 SendKey*
 - `TELEGRAM_BOT_TOKEN` [可选] *Telegram Bot Token*
