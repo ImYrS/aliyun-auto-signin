@@ -76,35 +76,29 @@ runs:
   using: composite
   steps:
     - uses: actions/checkout@v3
-      with:
-        repository: 'fuwt/aliyun-auto-signin'
     - uses: actions/setup-python@v4
       with:
         python-version: '3.10'
     - name: Dependencies
       shell: bash
       run: pip install configobj requests pynacl
-    # - id: version
-    #   uses: pozetroninc/github-action-get-latest-release@master
-    #   with:
-    #     repository: ImYrS/aliyun-auto-signin
-    #     excludes: prerelease, draft
-    # - name: Download
-    #   shell: bash
-    #   run: |
-    #     wget https://github.com/ImYrS/aliyun-auto-signin/archive/refs/tags/${{ steps.version.outputs.release }}.zip -O release.zip
-    #     rm -rf release
-    #     unzip release.zip -d release
-    #     rm release.zip
-    # - name: Run
-    #   shell: bash
-    #   run: |
-    #     cd release
-    #     cd $(ls -dt */|head -1 )
-    #     python app.py action
+    - id: version
+      uses: pozetroninc/github-action-get-latest-release@master
+      with:
+        repository: ImYrS/aliyun-auto-signin
+        excludes: prerelease, draft
+    - name: Download
+      shell: bash
+      run: |
+        wget https://github.com/ImYrS/aliyun-auto-signin/archive/refs/tags/${{ steps.version.outputs.release }}.zip -O release.zip
+        rm -rf release
+        unzip release.zip -d release
+        rm release.zip
     - name: Run
       shell: bash
       run: |
+        cd release
+        cd $(ls -dt */|head -1 )
         python app.py action
       env:
         REFRESH_TOKENS: ${{ inputs.REFRESH_TOKENS }}
